@@ -1,0 +1,25 @@
+{% extends 'social/base.html' %}
+{% load static %}
+
+{% block title %}Home - Social Media{% endblock %}
+
+{% block content %}
+    <section class="posts">
+        {% for post in posts %}
+            <div class="post">
+                <h2>{{ post.content_text }}</h2>
+                {% if post.content_image %}
+                    <img src="{{ post.content_image.url }}" alt="Post Image">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </section>
+    <aside>
+        <h3>Suggestions</h3>
+        <ul>
+            {% for suggestion in suggestions %}
+                <li>{{ suggestion.username }}</li>
+            {% endfor %}
+        </ul>
+    </aside>
+{% endblock %}

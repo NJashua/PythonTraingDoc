@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Edit Post</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="content_text">Content:</label>
+    <textarea id="content_text" name="content_text">{{ post.content_text }}</textarea><br><br>
+    <label for="content_image">Image:</label>
+    <input type="file" id="content_image" name="content_image"><br><br>
+    <input type="submit" value="Edit Post">
+  </form>
+{% endblock %}

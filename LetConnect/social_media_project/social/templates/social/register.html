@@ -1,0 +1,30 @@
+{% extends 'social/base.html' %}
+{% load static %}
+
+{% block title %}Register - Social Media{% endblock %}
+
+{% block content %}
+    <form action="{% url 'register' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" required>
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <label for="confirmation">Confirm Password:</label>
+        <input type="password" id="confirmation" name="confirmation" required>
+        <label for="profile">Profile Picture:</label>
+        <input type="file" id="profile" name="profile">
+        <label for="cover">Cover Photo:</label>
+        <input type="file" id="cover" name="cover">
+        <button type="submit">Register</button>
+    </form>
+{% endblock %}

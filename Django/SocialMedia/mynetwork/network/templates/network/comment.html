@@ -1,0 +1,12 @@
+{% extends 'network/base.html' %}
+
+{% block title %}Comment{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="comment_content">Comment:</label>
+        <textarea id="comment_content" name="comment_content" required></textarea>
+        <button type="submit">Comment</button>
+    </form>
+{% endblock %}

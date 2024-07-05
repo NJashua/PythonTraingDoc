@@ -1,0 +1,125 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Tourism</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-left">
+                    <a href="/" class="logo">Explore Tourism</a>
+                </div>
+                <div class="top-bar-right">
+                    <nav>
+                        <ul>
+                            <li><a href="/destinations">Destinations</a></li>
+                            <li><a href="/tours">Tours</a></li>
+                            <li><a href="/activities">Activities</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="hero">
+            <div class="container">
+                <h1>Welcome to Explore Tourism</h1>
+                <p>Discover amazing destinations and plan your next adventure.</p>
+                <a href="/tours" class="btn">Explore Tours</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="destinations">
+            <div class="container">
+                <h2>Popular Destinations</h2>
+                <div class="destination-list">
+                    <div class="destination-item">
+                        <img src="https://cdn.britannica.com/86/170586-050-AB7FEFAE/Taj-Mahal-Agra-India.jpg?w=300" alt="Destination 1">
+                        <h3>{{dest1.name}}</h3>
+                        <p>{{dest1.desc}}</p>
+                    </div>
+                    <div class="destination-item">
+                        <img src="destination2.jpg" alt="Destination 2">
+                        <h3>Destination 2</h3>
+                        <p>Discover the charm of Destination 2.</p>
+                    </div>
+                    <!-- More destinations -->
+                </div>
+            </div>
+        </section>
+
+        <section class="tours">
+            <div class="container">
+                <h2>Featured Tours</h2>
+                <div class="tour-list">
+                    <div class="tour-item">
+                        <img src="tour1.jpg" alt="Tour 1">
+                        <h3>Tour 1</h3>
+                        <p>Experience Tour 1 with our expert guides.</p>
+                    </div>
+                    <div class="tour-item">
+                        <img src="tour2.jpg" alt="Tour 2">
+                        <h3>Tour 2</h3>
+                        <p>Embark on an adventure with Tour 2.</p>
+                    </div>
+                    <!-- More tours -->
+                </div>
+            </div>
+        </section>
+
+        <section class="activities">
+            <div class="container">
+                <h2>Activities</h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <img src="activity1.jpg" alt="Activity 1">
+                        <h3>Activity 1</h3>
+                        <p>Enjoy Activity 1 in the heart of nature.</p>
+                    </div>
+                    <div class="activity-item">
+                        <img src="activity2.jpg" alt="Activity 2">
+                        <h3>Activity 2</h3>
+                        <p>Experience thrilling Adventure 2.</p>
+                    </div>
+                    <!-- More activities -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <a href="/" class="logo">Explore Tourism</a>
+            </div>
+            <div class="footer-nav">
+                <nav>
+                    <ul>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/sitemap">Sitemap</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="social-icons">
+                <a href="#" class="icon-link"><img src="facebook.png" alt="Facebook"></a>
+                <a href="#" class="icon-link"><img src="twitter.png" alt="Twitter"></a>
+                <a href="#" class="icon-link"><img src="instagram.png" alt="Instagram"></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Explore Tourism. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

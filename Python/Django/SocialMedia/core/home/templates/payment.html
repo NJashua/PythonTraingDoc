@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h3 class="card-title">Payment</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="payment_mode">Select Payment Method:</label>
+                            <select class="form-control" id="payment_mode" name="payment_mode" required>
+                                <option value="">Select Payment Method</option>
+                                <option value="debit_card">Debit Card</option>
+                                <option value="upi">UPI</option>
+                                <!-- Add more payment methods as needed -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Pay Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

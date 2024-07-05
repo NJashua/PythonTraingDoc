@@ -1,0 +1,39 @@
+<!-- movieApp/templates/listmovie.html -->
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>List Movies</title>
+    <link rel="stylesheet" href="{% static 'css/movie.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+</head>
+<body>
+    <h1 class="movies-info">Movies Information</h1>
+    {% if movies_list %}
+    <table>
+        <thead>
+            <th>Released Date</th>
+            <th>Movie Name</th>
+            <th>Hero</th>
+            <th>Heroine</th>
+            <th>Rating</th>
+        </thead>
+        <tbody>
+            {% for movie in movies_list %}
+            <tr>
+                <td>{{ movie.rdate }}</td>
+                <td>{{ movie.moviename }}</td>
+                <td>{{ movie.hero }}</td>
+                <td>{{ movie.heroine }}</td>
+                <td>{{ movie.rating }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No Movies Found</p>
+    {% endif %}
+</body>
+</html>

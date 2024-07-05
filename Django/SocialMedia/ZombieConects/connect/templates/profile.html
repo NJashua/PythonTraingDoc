@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ user_object.username }}'s Profile</h1>
+    <div class="profile-info">
+        <img src="{{ user_profile.profileimg.url }}" alt="Profile Picture">
+        <p>{{ user_profile.bio }}</p>
+        <p>{{ user_profile.location }}</p>
+    </div>
+
+    <div class="post-container">
+        {% for post in user_posts %}
+        <div class="post">
+            <img src="{{ post.image.url }}" alt="Post Image">
+            <p>{{ post.caption }}</p>
+            <p>{{ post.no_of_likes }} likes</p>
+            <button class="like-btn" onclick="likePost({{ post.id }})">Like</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <button class="follow-btn" onclick="followUser({{ user_object.username }})">{{ button_text }}</button>
+{% endblock %}

@@ -1,0 +1,12 @@
+<!-- templates/follow.html -->
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Follow {{ follow.id }}</h1>
+    <p>Follower: {{ follow.follower_id }}</p>
+    <p>Following: {{ follow.following_id }}</p>
+    <form action="{{ url_for('api.delete_follow') }}" method="post">
+        <input type="hidden" name="follow_id" value="{{ follow.id }}">
+        <button type="submit">Unfollow</button>
+    </form>
+{% endblock %}

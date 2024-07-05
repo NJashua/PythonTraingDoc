@@ -1,0 +1,634 @@
+import pandas as pd
+import numpy as np
+technologies   = ({
+    'Courses':["Spark","PySpark","Hadoop","Python","Pandas",None,"Spark","Python"],
+    'Fee' :[22000,25000,23000,24000,np.nan,25000,25000,22000],
+    'Duration':['30day','50days','55days','40days','60days','35day','','50days'],
+    'Discount':[1000,2300,1000,1200,2500,1300,1400,1600]
+          })
+row_labels=['r0','r1','r2','r3','r4','r5','r6','r7']
+
+df = pd.DataFrame(technologies, index=row_labels)
+
+print(df)
+
+Filter Rows from DataFrame:
+===========================
+query()/apply()/loc[] – These are used to query pandas DataFrame. 
+you can also do operator chaining while filtering pandas rows.
+
+pandas.DataFrame.filter() – To filter rows by index and columns by name.
+pandas.DataFrame.loc[] – To select rows by indices label and column by name.
+pandas.DataFrame.iloc[] – To select rows by index and column by position.
+pandas.DataFrame.apply() – To custom select using lambda function.
+
+
+# Using DataFrame.query()
+df.query("Courses != 'Spark'")
+df.query("Courses in ('Spark','PySpark')")
+df.query("Fee>= 23000 and Fee<= 24000")
+
+# Using DataFrame.loc[]
+df.loc[df['Courses'] != 'Spark']
+df.loc[df['Courses'].isin(['Spark',PySpark'])]
+df.loc[~df['Courses'].isin(['Spark',PySpark'])]
+df.loc[(df['Discount'] >= 1000) & (df['Discount'] <= 2000)]
+df.loc[(df['Discount'] >= 1200) & (df['Fee'] >= 23000 )]
+
+# Using apply()
+df.apply(lambda row: row[df['Courses'].isin(['Spark','PySpark'])])
+
+
+# Other ways to filter 
+df[df["Courses"] == 'Spark'] 
+df[df['Courses'].str.contains("spark")]
+df[df['Courses'].str.lower().str.contains("spark")]
+df[df['Courses'].str.startswith("P")]
+
+
+Insert Rows & Columns to DataFrame:
+------------------------------------
+insert()/assign() – Adds a new column to the pandas DataFrame
+
+By using assign() & insert() methods you can add one or multiple columns to the pandas DataFrame.
+
+
+df = pd.DataFrame(technologies, index=row_labels)
+
+# Adds new column 'TutorsAssigned' to DataFrame
+
+tutors = ['William', 'Henry', 'Michael', 'John', 
+          'Messi', 'Ramana','Kumar','Vasu']
+
+df2 = df.assign(TutorsAssigned=tutors)
+print(df2)
+
+# Add new column from existing column
+df2=df.assign(Discount_Percent=lambda x: x.Fee * x.Discount / 100)
+
+# Other way to add a column
+df["TutorsAssigned"] = tutors
+
+# Add new column at the beginning
+df.insert(0,'TutorsAssigned', tutors )
+
+
+
+
+Rename DataFrame Columns:
+==========================
+rename() – Renames pandas DataFrame columns
+
+Pandas DataFrame.rename() method is used to change/replace columns (single & multiple columns), by index, and all columns of the DataFrame.
+
+
+df = pd.DataFrame(technologies, index=row_labels)
+
+
+# Assign new header by setting new column names.
+df.columns=['A','B','C']
+
+# Change column name by index. This changes 3rd column 
+df.columns.values[2] = "C"
+
+# Rename Column Names using rename() method
+df2 = df.rename({'Courses': 'A', 'Fee': 'B'}, axis=1)
+df2 = df.rename({'Courses': 'A', 'Fee': 'B'}, axis='columns')
+df2 = df.rename(columns={'Courses': 'A', 'Fee': 'B'})
+
+# Rename columns inplace (self DataFrame)
+df.rename(columns={'a': 'A', 'b': 'B'}, inplace = True)
+
+# Rename using lambda function
+df.rename(columns=lambda x: x[1:], inplace=True)
+
+# Rename with error. When x not present, it thorows error.
+df.rename(columns = {'x':'X'}, errors = "raise")
+
+
+
+Drop DataFrame Rows and Columns:
+--------------------------------
+drop() – drop method is used to drop rows and columns
+
+Below are some examples. In order to understand better go through drop rows from panda DataFrame with examples. dropping rows doesn’t complete without learning how to drop rows with/by condition
+
+
+df = pd.DataFrame(technologies, index=row_labels)
+
+# Drop rows by labels
+df1 = df.drop(['r1','r2'])
+print(df)
+
+
+# Delete Rows by position
+df1=df.drop(df.index[[1,3]])
+
+# Delete Rows by Index Range
+df1=df.drop(df.index[2:])
+
+# When you have default indexs for rows
+df1 = df.drop(0)
+df1 = df.drop([0, 3])
+df1 = df.drop(range(0,2))
+
+# Drop rows by checking conditions
+df1 = df.loc[df["Discount"] >=1500 ]
+
+# DataFrame slicing
+df2=df[4:]     # Returns rows from 4th row
+df2=df[1:-1]   # Removes first and last row
+df2=df[2:4]    # Return rows between 2 and 4
+
+
+Now let’s see how to how to drop columns from pandas DataFrame with examples. In order to drop columns, you have to use either axis=1 or columns param to drop() method.
+
+df = pd.DataFrame(technologies, index=row_labels)
+
+# Delete Column by Name
+df2=df.drop(["Fee"], axis = 1)
+
+# Drop by using labels & axis
+df2=df.drop(labels=["Fee"], axis = 1)
+
+# Drop by using columns
+df2=df.drop(columns=["Fee"])
+
+# Drop column by index
+df2=df.drop(df.columns[[1]], axis = 1)
+
+
+Group the Rows by Column Name and Get Count:
+--------------------------------------------
+Use the Pandas df.groupby() function to group the rows by column and use the count() method to get the count for each group by ignoring None and Nan values.
+
+# Create a pandas DataFrame.
+
+import pandas as pd
+technologies   = ({
+    'Courses':["Spark","PySpark","Hadoop","Python","Pandas","Hadoop","Spark","Python"],
+    'Fee' :[22000,25000,23000,24000,26000,25000,25000,22000],
+    'Duration':['30days','50days','35days','40days','60days','35days','55days','50days'],
+    'Discount':[1000,2300,1000,1200,2500,1300,1400,1600]
+                })
+df = pd.DataFrame(technologies, columns=['Courses','Fee','Duration','Discount'])
+print("Create DataFrame:\n", df)
+
+
+# Using groupby() and count() 
+# to get the count of each group
+
+df2 = df.groupby(['Courses'])['Courses'].count()
+print("Get count of each group:\n", df2)
+
+
+Note:
+-----
+If you want to get the count of each group greater than 1, you can use the filter() function and get each group that contains the count number as 2.
+
+df2 = df['Courses'].groupby(df['Courses']).filter(lambda x: len(x) > 1).value_counts()
+print("Get count of each group:\n", df2)
+
+  
+By Multiple Columns:
+--------------------
+You can groupby rows by multiple columns using the groupby() method. This allows you to apply a groupby on multiple columns and calculate a count for each combination group using the count() method. For example, df.groupby(['Courses','Duration'])['Fee'].count() does group on Courses and Duration column.
+
+# Using groupby() & count() on multiple column
+df2 = df.groupby(['Courses','Duration'])['Fee'].count()
+print(df2)
+
+# Output:
+Courses  Duration
+Hadoop   35days      2
+Pandas   60days      1
+PySpark  50days      1
+Python   40days      1
+         50days      1
+Spark    30days      1
+         55days      1
+Name: Fee, dtype: int64
+
+
+As you can see from the above, a new Pandas Series has been created where the index is unique combinations of ‘Courses’ and ‘Duration,’ and the values represent the count of non-null ‘Fee’ values for each of those combinations.
+
+
+Pandas Groupby Count Sort Descending:
+-------------------------------------
+Sometimes you would be required to perform a sort (ascending or descending order) after performing group and count. You can achieve this using the below example.
+
+Note that by default groupby sorts results by group key hence, it will take additional time, if you have a performance issue and don’t want to sort the group by the result, you can turn this off by using the sort=False param.
+
+# Sorting after groupby() & count()
+# Sorting group keys on descending order
+
+groupedDF = df.groupby('Courses',sort=False).count()
+sortedDF=groupedDF.sort_values('Courses', ascending=False)['Fee']
+print(sortedDF)
+
+# Output:
+Courses
+Spark      2
+Python     2
+PySpark    1
+Pandas     1
+Hadoop     2
+Name: Fee, dtype: int64
+
+
+Pandas fillna NaN with None Value:
+----------------------------------
+
+fillna() method is used to fill NaN/NA values on a specified column or on an entire DataaFrame with any given value. You can specify modifications using inplace, or limit how many fillings to perform, or choose an axis whether to fill on rows/columns etc. The Below example fills all NaN values with the None value.
+ex:
+---
+# Create DataFrame
+import pandas as pd
+import numpy as np
+df = pd.DataFrame(({
+     'Courses':["Spark",'Java',"Scala",'Python'],
+     'Fee' :[20000,np.nan,26000,24000],
+     'Duration':['30days','40days', pd.NA,'40days'],
+     'Discount':[1000,np.nan,2500,None]
+               }))
+print("Create DataFrame:\n", df)
+
+
+# Fillna() on all columns
+df2=df.fillna('None')
+print(df2)
+
+# Fillna() on once column
+df2['Discount'] =  df['Discount'].fillna(0)
+print(df2)
+
+# Fillna() on multiple columns
+df2[['Discount','Fee']] =  df[['Discount','Fee']].fillna(0)
+print(df2)
+
+# Fillna() on multiple columns
+df2 =  df.fillna(value={'Discount':0,'Fee':10000})
+print(df2)
+
+Drop Rows with NaN Values:
+----------------------------
+You can use the dropna() method to remove rows with NaN (Not a Number) and None values from Pandas DataFrame. By default, it removes any row containing at least one NaN value and returns the copy of the DataFrame after removing rows
+
+
+import pandas as pd
+import numpy as np
+technologies = ({
+     'Courses':["Spark",'Java',"Hadoop",'Python',np.nan],
+     'Fee' :[20000,np.nan,26000,24000,np.nan],
+     'Duration':['30days',np.nan,'35days','40days',np.nan],
+     'Discount':[1000,np.nan,2500,None,np.nan]
+               })
+df = pd.DataFrame(technologies)
+print("Create DataFrame:\n", df)
+
+
+# Drop all rows that have NaN/None values
+df2 = df.dropna()
+print("After dropping the rows with NaN Values:\n", df2)
+
+
+
+Pandas Read CSV into DataFrame:
+--------------------------------
+To read a CSV file with comma delimiter use pandas.read_csv()
+
+# Import pandas
+import pandas as pd
+
+# Read CSV file into DataFrame
+df = pd.read_csv('courses.csv')
+print(df)
+
+Note:
+-----
+By default, it reads first rows on CSV as column names (header) and it creates an incremental numerical number as index starting from zero.
+
+Set Column as Index:
+----------------------
+You can set a column as an index using index_col as param
+
+# Set column as Index
+df = pd.read_csv('courses.csv', index_col='Courses')
+print(df)
+
+Skip Rows:
+-----------
+Sometimes you may need to skip first-row or skip footer rows, use skiprows and skipfooter param respectively.
+
+# Skip first few rows
+df = pd.read_csv('courses.csv', header=None, skiprows=2)
+print(df)
+
+Read CSV by Ignoring Column Names
+By default, it considers the first row from excel as a header and used it as DataFrame column names. In case you wanted to consider the first row from excel as a data record use header=None param and use names param to specify the column names. Not specifying names result in column names with numerical numbers.
+
+
+# Ignore header and assign new columns
+----------------------------------------
+columns = ['courses','course_fee','course_duration','course_discount']
+
+df = pd.read_csv('courses.csv', header=None,names=columns,skiprows=1)
+print(df)
+
+Load only Selected Columns:
+---------------------------
+Using usecols param you can select columns to load from the CSV file. This takes columns as a list of strings or a list of int.
+
+
+# Load only selected columns
+columns = ['courses','course_fee','course_duration','course_discount']
+df = pd.read_csv('courses.csv', usecols =['Courses','Fee','Discount'])
+print(df)
+
+
+Writing into csv:
+=================
+Pandas DataFrame provides to_csv() method to write/export DataFrame to CSV comma-separated delimiter file along with header and index.
+
+# Create DataFrame
+import pandas as pd
+import numpy as np
+technologies = {
+    'Courses':["Spark","PySpark","Hadoop","Python"],
+    'Fee' :[22000,25000,np.nan,24000],
+    'Duration':['30day',None,'55days',np.nan],
+    'Discount':[1000,2300,1000,np.nan]
+          }
+df = pd.DataFrame(technologies)
+
+Write DataFrame to CSV without Header:
+======================================
+You can use header=False param to write DataFrame without a header (column names). By default to_csv() method exports DataFrame to CSV file with header hence you need to use this param to ignore the header.
+
+# Write DataFrame to CSV without Header
+df.to_csv("c:/tmp/courses.csv", header=False)
+
+
+Writing Using Custom Delimiter:
+-------------------------------
+By default CSV file is created with a comma delimiter, you can change this behavior by using sep param (separator) and chose other delimiters like tab (\t), pipe (|) e.t.c.
+
+# Using Custom Delimiter
+df.to_csv("c:/tmp/courses.csv", header=False, sep='|')
+
+
+Writing to CSV ignoring Index:
+------------------------------
+As I said earlier, by default the DataFrame would be exported to CSV with row index, you can ignore this by using param index=False.
+
+# Write DataFrame to CSV without Index
+df.to_csv("c:/tmp/courses.csv", index=False)
+
+
+Export Selected Columns to CSV File:
+------------------------------------
+# Export Selected Columns to CSV File
+column_names = ['Courses', 'Fee','Discount']
+df.to_csv("c:/tmp/courses.csv",index=False, columns=column_names)
+
+
+
+
+
+
+Writing to Excel Sheet:
+========================
+pip install openPyxl
+
+import pandas as pd
+import numpy as np
+
+# Create multiple lists
+technologies =  ['Spark','Pandas','Java','Python', 'PHP']
+fee = [25000,20000,15000,15000,18000]
+duration = ['50 Days','35 Days',np.nan,'30 Days', '30 Days']
+discount = [2000,1000,800,500,800]
+
+columns=['Courses','Fee','Duration','Discount']
+
+# Create DataFrame from multiple lists
+df = pd.DataFrame(list(zip(technologies,fee,duration,discount)), columns=columns)
+print("Create DataFrame:\n", df)
+
+
+pandas DataFrame to Excel:
+=========================
+Use the to_excel() function to write or export Pandas DataFrame to an excel sheet with the extension xslx. Using this you can write an excel file to the local file system, S3 e.t.c. Not specifying any parameter by default, it writes to a single sheet.
+
+# Write DataFrame to Excel file
+df.to_excel('Courses.xlsx')
+print(df)
+
+Write to Multiple Sheets:
+-------------------------
+The ExcelWriter class allows you to write or export multiple Pandas DataFrames to separate sheets. First, you need to create an object for ExcelWriter.
+
+The below example writes data from df object to a sheet named Technologies and df2 object to a sheet named Schedule.
+
+# Write to Multiple Sheets
+with pd.ExcelWriter('Courses_ex2.xlsx') as writer:
+    df.to_excel(writer, sheet_name='Technologies',columns=['Fee','Duration'])
+    df.to_excel(writer, sheet_name='Schedule',columns=['Courses','Discount'])
+
+
+Append to Existing Excel File:
+------------------------------
+ExcelWriter can be used to append DataFrame to an excel file. Use mode param with value 'a' to append. The code below opens an existing file and adds data from the DataFrame to the specified sheet.
+
+# Append DataFrame to existing excel file
+with pd.ExcelWriter('Courses.xlsx',mode='a') as writer:  
+    df.to_excel(writer, sheet_name='Technologies')
+
+Save Selected Columns:
+======================
+Use param columns to save selected columns from DataFrame to an excel file. The below example only saves columns Fee, Duration to excel file.
+
+# Save Selected Columns to Excel File
+df.to_excel('Courses.xlsx', columns = ['Fee','Duration'])
+
+
+Skip Index:
+-----------
+To skip Index from writing use index=False param. By default, it is set to True mean writing a numerical Index to an excel sheet.
+
+# Skip Index
+df.to_excel('Courses.xlsx', index = False)
+
+
+
+Writing to Json:
+================
+import pandas as pd
+technologies = [
+            ("Spark", 22000,'30days',1000.0),
+            ("PySpark",25000,'50days',2300.0),
+            ("Hadoop",23000,'55days',1500.0)
+            ]
+df = pd.DataFrame(technologies,columns = ['Courses','Fee','Duration','Discount'])
+print("Create DataFrame:\n", df)
+
+
+
+Use DataFrame.to_json() to orient = ‘columns’:
+-----------------------------------------------
+orient='columns' is a default value, when not specifying the DataFrame.to_json() function uses columns as orient and returns JSON string like a dict {column -> {index -> value}} format.
+
+# Use DataFrame.to_json() to orient = 'columns' 
+df2 = df.to_json(orient = 'columns')
+print("After converting DataFrame to JSONstring:\n", df2)
+
+Convert DataFrame to JSON Using orient = ‘records’:
+---------------------------------------------------
+Use orient='records' to convert DataFrame to JSON in format  [{column -> value}, … , {column -> value}]
+
+# Convert Pandas DataFrame To JSON Using orient = 'index'
+df2 = df.to_json(orient ='index')
+print("After converting DataFrame to JSONstring:\n", df2)
+
+Using orient = ‘split’:
+-----------------------
+You can use orient='split' to convert DataFrame to JSON in 
+format dict like {‘index’ -> [index], ‘columns’ -> [columns], ‘data’ -> [values]}.
+
+
+# Convert Pandas DataFrame To JSON Using orient = 'split'
+df2 = df.to_json(orient = 'split')
+print("After converting DataFrame to JSONstring:\n", df2)
+
+Using orient = ‘table’:
+=======================
+You can use orient = ‘table’ to convert DataFrame to JSON with 
+format  dict like {‘schema’: {schema}, ‘data’: {data}}.
+
+# Convert Pandas DataFrame To JSON Using orient = 'table'
+df2 = df.to_json(orient = 'table')
+print("After converting DataFrame to JSONstring:\n", df2)
+
+Using orient =’values’:
+-----------------------
+You can also use orient =’values’ to get DataFrame as an array of values.
+
+# Convert Pandas DataFrame To JSON Using orient ='values'
+df2 = df.to_json("courses1.json",orient ='values')
+print("After converting DataFrame to JSONstring:\n", df2)
+
+
+
+
+
+describe:
+---------
+A large number of methods collectively compute descriptive statistics and other related operations on DataFrame. Most of these are aggregations like sum(), mean(), but some of them, like sumsum(), produce an object of the same size. 
+
+Generally speaking, these methods take an axis argument, just like ndarray.{sum, std, ...}, but the axis can be specified by name or integer
+
+DataFrame − “index” (axis=0, default), “columns” (axis=1)
+
+Let us create a DataFrame and use this object throughout this chapter for all the operations.
+
+import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Smith','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])
+}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print df
+
+
+sum():
+------
+Returns the sum of the values for the requested axis. By default, axis is index (axis=0).
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print df.sum()
+
+note:
+-----
+Each individual column is added individually (Strings are appended).
+
+axis=1
+This syntax will give the output as shown below.
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print df.sum(1)
+
+
+
+The describe() function computes a summary of statistics pertaining to the DataFrame columns:
+
+import pandas as pd
+import numpy as np
+
+#Create a Dictionary of series
+d = {'Name':pd.Series(['Tom','James','Ricky','Vin','Steve','Smith','Jack',
+   'Lee','David','Gasper','Betina','Andres']),
+
+   'Age':pd.Series([25,26,25,23,30,29,23,34,40,30,51,46]),
+   'Rating':pd.Series([4.23,3.24,3.98,2.56,3.20,4.6,3.8,3.78,2.98,4.80,4.10,3.65])
+}
+
+#Create a DataFrame
+df = pd.DataFrame(d)
+print df.describe()
+
+               Age         Rating
+count    12.000000      12.000000
+mean     31.833333       3.743333
+std       9.232682       0.661628
+min      23.000000       2.560000
+25%      25.000000       3.230000
+50%      29.500000       3.790000
+75%      35.500000       4.132500
+max      51.000000       4.800000
+
+
+Matplotlib:
+-----------
+Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python. It is a plotting library for the Python programming language and its numerical mathematics extension NumPy
+
+pip install matplotlib
+
+Example 1:
+----------------
+Import Matplotlib and Pandas module, and read the excel file using the Pandas read_excel() method. 
+After reading data for the x-axis and y-axis from the excel file. 
+Plot the graph using the Matplotlib library. 
+Here, we are plotting a bar graph hence using the bar() method and the show() method to display the graph.
+
+
+import matplotlib.pyplot as plt 
+import pandas as pd 
+file = pd.read_excel('C:\\Users\\sainath\\Desktop\\fruits.xlsx') 
+print(file)
+x_axis = file['X values'] 
+y_axis = file['Y values'] 
+plt.bar(x_axis, y_axis, width=5) 
+plt.xlabel("X-Axis") 
+plt.ylabel("Y-Axis") 
+plt.show() 
+
+
+Example 2:
+---------
+Now, we can plot other graphs and charts by using data from an excel file. 
+Let’s plot a pie chart from the excel file which we used earlier.
+
+import matplotlib.pyplot as plt 
+import pandas as pd 
+file = pd.read_excel('C:\\Users\\sainath\\Desktop\\fruits.xlsx') 
+plt.pie(file['Value'],labels=file['Label']) 
+plt.show()
+

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Movie List</h1>
+    <div class="row">
+        {% for movie in movies %}
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ movie.movie_image }}" alt="{{ movie.movie_name }}">
+                    </div>
+                    <div class="card-content">
+                        <h5>{{ movie.movie_name }}</h5>
+                        <p>{{ movie.movie_description }}</p>
+                        <p>Rating: {{ movie.rating }}</p>
+                        <p>Release Date: {{ movie.release_date }}</p>
+                        <a href="{% url 'book_movie' movie.id %}" class="btn">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

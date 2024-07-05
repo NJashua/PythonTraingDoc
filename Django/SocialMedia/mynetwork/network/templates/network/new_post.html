@@ -1,0 +1,24 @@
+<!-- {% extends 'network/base.html' %}
+
+{% block title %}New Post{% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="content_text">Content:</label>
+        <textarea id="content_text" name="content_text" required></textarea>
+        <label for="content_image">Image:</label>
+        <input type="file" id="content_image" name="content_image" required>
+        <button type="submit">Post</button>
+    </form>
+{% endblock %} -->.
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>New Post</h1>
+    <form class="form">
+        <textarea class="form-input" placeholder="What's on your mind?"></textarea>
+        <button class="form-btn">Post</button>
+    </form>
+{% endblock %}

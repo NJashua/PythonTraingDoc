@@ -1,0 +1,12 @@
+{% load static %}
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Create Post</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <textarea name="text" placeholder="What's on your mind?"></textarea>
+    <input type="file" name="picture">
+    <button type="submit">Post</button>
+  </form>
+{% endblock %}

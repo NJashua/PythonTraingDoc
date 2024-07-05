@@ -1,0 +1,53 @@
+This is a testing.
+Hello world.
+
+
+df.loc[df['ACCOUNT_NUMBER'] == self.user_number, 'USER_AMMOUNT'] += deposit
+
+        # Save the updated data back to the file
+        try:
+            df.to_excel("PaisaData.xlsx", index=False, engine='openpyxl')
+            print(f"Deposit of {deposit} made successfully to account number {self.user_number}.")
+        except Exception as e:
+            print(f"Failed to write to Excel file: {e}")
+
+///////////////////////////////////////////////////////////////////////
+
+import sqlite3
+
+# Establish connection to the database
+connection = sqlite3.connect("Assignments\DatabaseOperations\data.db")
+cursor = connection.cursor()
+
+# Define a function to create a table
+def create_table():
+    table_name = input("Enter table name: ")  # Prompt user for table name
+    table_data = []
+    
+    while True:
+        col_name = input("Enter column name (type 'Enough' to stop): ")
+        if col_name.lower() == "enough":
+            break
+        col_type = input(f"Enter type for column '{col_name}': ")
+        table_data.append((col_name, col_type))  # Append column details as a tuple
+    
+    # Constructing the CREATE TABLE SQL statement
+    sql_statement = f"CREATE TABLE IF NOT EXISTS {table_name} ("
+    for column in table_data:
+        sql_statement += f"{column[0]} {column[1]}, "
+    sql_statement = sql_statement.rstrip(", ") + ")"  # Remove trailing comma and space
+    
+    # Execute the SQL statement
+    try:
+        cursor.execute(sql_statement)
+        connection.commit()
+        print(f"Table '{table_name}' created successfully.")
+    except sqlite3.Error as e:
+        print(f"Error creating table: {e}")
+
+# Call the function to create a table
+create_table()
+
+# Close the cursor and connection
+cursor.close()
+connection.close()

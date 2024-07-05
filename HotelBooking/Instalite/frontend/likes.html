@@ -1,0 +1,12 @@
+<!-- templates/like.html -->
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Like {{ like.id }}</h1>
+    <p>Post: {{ like.post_id }}</p>
+    <p>User: {{ like.user_id }}</p>
+    <form action="{{ url_for('api.delete_like') }}" method="post">
+        <input type="hidden" name="like_id" value="{{ like.id }}">
+        <button type="submit">Unlike</button>
+    </form>
+{% endblock %}

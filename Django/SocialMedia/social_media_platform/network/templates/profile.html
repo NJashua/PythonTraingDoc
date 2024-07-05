@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ user.username }}'s Profile</h1>
+  <ul>
+    {% for post in posts %}
+      <li>
+        {{ post.content_text }}
+        <img src="{{ post.content_image.url }}" alt="post image">
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

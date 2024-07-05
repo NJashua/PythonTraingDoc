@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ username.username }}'s Profile - Social Media App{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ username.username }}'s Profile</h1>
+    <h3>Posts:</h3>
+    {% for post in posts %}
+    <div class="post">
+        <p>{{ post.content_text }}</p>
+        {% if post.content_image %}
+        <img src="{{ post.content_image.url }}" alt="Post Image">
+        {% endif %}
+        <!-- Add like, comment, and save functionalities -->
+    </div>
+    {% empty %}
+    <p>No posts yet.</p>
+    {% endfor %}
+    <p>Follower Count: {{ follower_count }}</p>
+    <p>Following Count: {{ following_count }}</p>
+    <!-- Add edit profile, follow/unfollow, and other functionalities -->
+</div>
+{% endblock %}

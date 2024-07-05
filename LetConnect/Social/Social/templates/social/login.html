@@ -1,0 +1,18 @@
+{% extends 'social/base.html' %}
+{% load static %}
+
+{% block title %}Login - Social Media{% endblock %}
+
+{% block content %}
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}

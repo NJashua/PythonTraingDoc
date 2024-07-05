@@ -1,0 +1,33 @@
+{% extends 'social/base.html' %}
+{% load static %}
+
+{% block title %}Post Detail{% endblock %}
+
+{% block content %}
+    <article class="post-detail">
+        <h2>{{ post.content_text }}</h2>
+        {% if post.content_image %}
+            <img src="{{ post.content_image.url }}" alt="Post Image">
+        {% endif %}
+        <p>Posted by: {{ post.creater.username }}</p>
+        <p>Likes: {{ post.likers.count }}</p>
+        <p>Comments: {{ post.comment_count }}</p>
+        <button id="like-btn" data-postid="{{ post.id }}">Like</button>
+        <button id="unlike-btn" data-postid="{{ post.id }}">Unlike</button>
+        <button id="save-btn" data-postid="{{ post.id }}">Save</button>
+        <button id="unsave-btn" data-postid="{{ post.id }}">Unsave</button>
+        <div id="comments-section">
+            <h3>Comments</h3>
+            <ul id="comments-list">
+                {% for comment in comments %}
+                    <li>{{ comment.commenter.username }}: {{ comment.comment_content }}</li>
+                {% endfor %}
+            </ul>
+            <form id="comment-form">
+                {% csrf_token %}
+                <textarea id="comment-text" name="comment_text" required></textarea>
+                <button type="submit">Comment</button>
+            </form>
+        </div>
+    </article>
+{% endblock %}

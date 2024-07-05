@@ -1,0 +1,15 @@
+{% extends 'network/base.html' %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block content %}
+    <h1>Create Post</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="content_text">Content:</label>
+        <textarea id="content_text" name="content_text"></textarea><br><br>
+        <label for="content_image">Image:</label>
+        <input type="file" id="content_image" name="content_image"><br><br>
+        <input type="submit" value="Post">
+    </form>
+{% endblock %}

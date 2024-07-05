@@ -1,0 +1,45 @@
+<!-- {% extends 'network/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <div class="profile">
+        <img src="{{ user.profile_pic.url }}" alt="Profile Picture">
+        <h2>{{ user.username }}</h2>
+        <p>{{ user.bio }}</p>
+        <ul class="posts">
+            {% for post in user.posts.all %}
+            <li>
+                <img src="{{ post.content_image.url }}" alt="Post Image">
+                <p>{{ post.content_text }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %} -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ user.username }}'s Profile</h1>
+    <div class="profile">
+        <div class="profile-pic">
+            <img src="{{ user.profile_pic }}" alt="Profile picture">
+        </div>
+        <div class="profile-info">
+            <h2>{{ user.username }}</h2>
+            <p>{{ user.bio }}</p>
+        </div>
+        <div class="profile-stats">
+            <div>
+                <span>{{ user.posts.count }}</span> posts
+            </div>
+            <div>
+                <span>{{ user.followers.count }}</span> followers
+            </div>
+            <div>
+                <span>{{ user.following.count }}</span> following
+            </div>
+        </div>
+    </div>
+{% endblock %}

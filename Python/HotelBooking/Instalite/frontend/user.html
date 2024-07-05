@@ -1,0 +1,10 @@
+<!-- templates/user.html -->
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>User {{ user.username }}</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>Posts: {{ user.posts|length }}</p>
+    <p>Followers: {{ user.followers|length }}</p>
+    <p>Following: {{ user.following|length }}</p>
+{% endblock %}

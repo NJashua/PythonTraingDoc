@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'following' %}">Following</a></li>
+                <li><a href="{% url 'profile' user.username %}">Profile</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="aved">
+            <h2>Saved</h2>
+            <ul>
+                {% for post in saved_posts %}
+                <li>
+                    <img src="{{ post.content_image.url }}" alt="Saved Post Image">
+                    <p>{{ post.content_text }}</p>
+                    <form action="{% url 'unsave' post.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Unsave</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+</body>
+</html>

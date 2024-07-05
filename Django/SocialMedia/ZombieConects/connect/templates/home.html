@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Home</h1>
+    <div class="post-container">
+        {% for post in posts %}
+        <div class="post">
+            <img src="{{ post.image.url }}" alt="Post Image">
+            <p>{{ post.caption }}</p>
+            <p>{{ post.no_of_likes }} likes</p>
+            <button class="like-btn" onclick="likePost({{ post.id }})">Like</button>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

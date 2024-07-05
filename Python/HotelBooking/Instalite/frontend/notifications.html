@@ -1,0 +1,12 @@
+<!-- templates/notification.html -->
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Notification {{ notification.id }}</h1>
+    <p>Message: {{ notification.message }}</p>
+    <p>User: {{ notification.user_id }}</p>
+    <form action="{{ url_for('api.delete_notification') }}" method="post">
+        <input type="hidden" name="notification_id" value="{{ notification.id }}">
+        <button type="submit">Delete</button>
+    </form>
+{% endblock %}

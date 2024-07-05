@@ -1,0 +1,23 @@
+{% extends 'connect/base.html' %}
+
+{% block title %}Home - Instagram Clone{% endblock %}
+
+{% block content %}
+<div class="suggestions">
+    <h2>Suggestions</h2>
+    <ul>
+        {% for suggestion in suggestions %}
+            <li>{{ suggestion.username }}</li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="posts">
+    <h2>Posts</h2>
+    {% for post in posts %}
+        <div class="post">
+            <img src="{{ post.content_image.url }}" alt="Post Image">
+            <p>{{ post.content_text }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

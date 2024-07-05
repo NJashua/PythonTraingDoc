@@ -1,0 +1,10 @@
+{% extends 'network/base.html' %}
+
+{% block title %}Unlike{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Unlike</button>
+    </form>
+{% endblock %}

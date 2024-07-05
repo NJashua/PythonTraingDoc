@@ -1,0 +1,16 @@
+{% extends 'social/base.html' %}
+{% load static %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+    <form action="{% url 'edit_post' post.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="text">Text:</label>
+        <input type="text" id="text" name="text" value="{{ post.content_text }}" required>
+        <label for="picture">Picture:</label>
+        <input type="file" id="picture" name="picture">
+        <input type="hidden" id="img_change" name="img_change" value="false">
+        <button type="submit">Save Changes</button>
+    </form>
+{% endblock %}

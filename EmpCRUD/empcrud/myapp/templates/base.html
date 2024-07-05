@@ -1,0 +1,19 @@
+<!-- myapp/templates/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Project</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'department_list' %}">Departments</a>
+        <a href="{% url 'employee_search' %}">Search Employee</a>
+    </nav>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

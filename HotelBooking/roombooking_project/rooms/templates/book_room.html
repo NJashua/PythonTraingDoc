@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="room-detail">
+    <h1>Book Room</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="check_in_date">Check-in Date:</label>
+        <input type="date" id="check_in_date" name="check_in_date" required>
+        <label for="check_out_date">Check-out Date:</label>
+        <input type="date" id="check_out_date" name="check_out_date" required>
+        <button type="submit">Confirm Booking</button>
+    </form>
+</div>
+{% endblock %}

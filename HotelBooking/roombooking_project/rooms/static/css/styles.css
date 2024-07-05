@@ -1,0 +1,164 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.room-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.room-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.room-card h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.room-card p {
+    margin: 5px 0;
+}
+
+.room-card a {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+
+.room-card a:hover {
+    background-color: #555;
+}
+
+.room-detail {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.room-detail h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.room-detail p {
+    margin: 5px 0;
+}
+
+.room-detail form {
+    margin-top: 20px;
+}
+
+.room-detail form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.room-detail form input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.room-detail form button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.booking-confirmation {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.booking-confirmation h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.booking-confirmation p {
+    margin: 5px 0;
+}
+
+.booking-history {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.booking-history h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.booking-history .booking-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.booking-history .booking-card h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.booking-history .booking-card p {
+    margin: 5px 0;
+}

@@ -1,0 +1,49 @@
+{% extends 'social/base.html' %}
+{% load static %}
+
+{% block title %}{{ username.username }} - Profile{% endblock %}
+
+{% block content %}
+    <section class="profile">
+        <header>
+            <h1>{{ username.username }}</h1>
+            {% if username.profile_pic %}
+                <img src="{{ username.profile_pic.url }}" alt="Profile Picture">
+            {% endif %}
+            <p>Posts: {{ posts_count }}</p>
+            <p>Followers: {{ follower_count }}</p>
+            <p>Following: {{ following_count }}</p>
+            {% if request.user != username %}
+                {% if is_follower %}
+                    <form action="{% url 'unfollow' username=username.username %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form action="{% url 'follow' username=username.username %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Follow</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </header>
+        <main>
+            {% for post in posts %}
+                <div class="post">
+                    <h2>{{ post.content_text }}</h2>
+                    {% if post.content_image %}
+                        <img src="{{ post.content_image.url }}" alt="Post Image">
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </main>
+        <aside>
+            <h3>Suggestions</h3>
+            <ul>
+                {% for suggestion in suggestions %}
+                    <li>{{ suggestion.username }}</li>
+                {% endfor %}
+            </ul>
+        </aside>
+    </section>
+{% endblock %}

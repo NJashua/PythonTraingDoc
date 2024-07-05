@@ -1,0 +1,25 @@
+{% extends 'bookings/base.html' %}
+
+{% block content %}
+    <h1>Book a Room</h1>
+    <form method="post" action="{% url 'book_room' %}">
+        {% csrf_token %}
+        <label for="hotel">Hotel:</label>
+        <select id="hotel" name="hotel">
+            {% for hotel in hotels %}
+                <option value="{{ hotel.id }}">{{ hotel.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="checkin">Check-in Date:</label>
+        <input type="date" id="checkin" name="checkin" required>
+        <label for="checkout">Check-out Date:</label>
+        <input type="date" id="checkout" name="checkout" required>
+        <label for="rooms">Rooms:</label>
+        <input type="number" id="rooms" name="rooms" required>
+        <label for="adults">Adults:</label>
+        <input type="number" id="adults" name="adults" required>
+        <label for="children">Children:</label>
+        <input type="number" id="children" name="children">
+        <button type="submit">Book Now</button>
+    </form>
+{% endblock %}

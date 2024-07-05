@@ -1,0 +1,14 @@
+{% extends 'bookings/base.html' %}
+
+{% block content %}
+    <h1>Booking History</h1>
+    {% if bookings %}
+        <ul>
+        {% for booking in bookings %}
+            <li>{{ booking.hotel.name }} - {{ booking.checkin_date }} to {{ booking.checkout_date }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No bookings found.</p>
+    {% endif %}
+{% endblock %}

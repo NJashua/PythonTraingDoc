@@ -1,0 +1,6 @@
+Django
+djangorestframework
+snowflake-connector-python
+pandas
+matplotlib
+plotly

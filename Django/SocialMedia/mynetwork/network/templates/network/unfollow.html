@@ -1,0 +1,10 @@
+{% extends 'network/base.html' %}
+
+{% block title %}Unfollow{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Unfollow</button>
+    </form>
+{% endblock %}

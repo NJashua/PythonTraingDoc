@@ -1,0 +1,48 @@
+{% extends 'network/base.html' %}
+
+{% block title %}All Posts{% endblock %}
+
+{% block content %}
+    <h1>All Posts</h1>
+    {% if posts %}
+        {% for post in posts %}
+            <div class="post">
+                <div class="post-header">
+                    <img src="{{ post.creater.profile_pic.url }}" alt="Profile Pic">
+                    <span>{{ post.creater.username }}</span>
+                </div>
+                <div class="post-content">
+                    {% if post.content_image %}
+                        <img src="{{ post.content_image.url }}" alt="Post Image">
+                    {% endif %}
+                    <p>{{ post.content_text }}</p>
+                </div>
+                <div class="post-footer">
+                    <span>{{ post.date_created|naturaltime }}</span>
+                    <span><a href="{% url 'profile' post.creater.username %}">{{ post.creater.username }}</a></span>
+                    {% if user.is_authenticated and user != post.creater %}
+                        <button class="like-btn" data-post-id="{{ post.id }}">Like</button>
+                        <span class="like-count">{{ post.likers.count }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="pagination">
+            {% if posts.has_previous %}
+                <a href="?page={{ posts.previous_page_number }}">Previous</a>
+            {% endif %}
+            {% for i in posts.paginator.page_range %}
+                {% if posts.number == i %}
+                    <span>{{ i }}</span>
+                {% elif i == 1 %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% else %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">Next</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No posts yet

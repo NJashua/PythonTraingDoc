@@ -1,0 +1,13 @@
+<!-- templates/comment.html -->
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Comment {{ comment.id }}</h1>
+    <p>Text: {{ comment.text }}</p>
+    <p>Post: {{ comment.post_id }}</p>
+    <p>User: {{ comment.user_id }}</p>
+    <form action="{{ url_for('api.delete_comment') }}" method="post">
+        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+        <button type="submit">Delete</button>
+    </form>
+{% endblock %}

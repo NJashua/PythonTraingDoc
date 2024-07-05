@@ -1,0 +1,26 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instagram Clone</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('api.get_users') }}">Users</a></li>
+                <li><a href="{{ url_for('api.get_posts') }}">Posts</a></li>
+                <li><a href="{{ url_for('api.get_comments') }}">Comments</a></li>
+                <li><a href="{{ url_for('api.get_likes') }}">Likes</a></li>
+                <li><a href="{{ url_for('api.get_follows') }}">Follows</a></li>
+                <li><a href="{{ url_for('api.get_notifications') }}">Notifications</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

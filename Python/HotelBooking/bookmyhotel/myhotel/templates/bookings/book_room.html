@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Book Room</h2>
+<form method="POST" action="{% url 'book_hotel' %}">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{ hotel.id }}">
+    <label for="room">Room:</label>
+    <input type="number" id="room" name="room" value="1" required>
+    <label for="adult">Adults:</label>
+    <input type="number" id="adult" name="adult" value="1" required>
+    <label for="child">Children:</label>
+    <input type="number" id="child" name="child" value="0" required>
+    <label for="checkin">Check-In Date:</label>
+    <input type="date" id="checkin" name="checkin_date" required>
+    <label for="checkout">Check-Out Date:</label>
+    <input type="date" id="checkout" name="checkout_date" required>
+    <button type="submit">Book Now</button>
+</form>
+{% endblock %}

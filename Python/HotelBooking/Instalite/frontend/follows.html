@@ -1,0 +1,14 @@
+<!-- templates/follows.html -->
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Follows</h1>
+    <ul>
+        {% for follow in follows %}
+            <li>
+                <p>Follower: {{ follow.follower_id }}</p>
+                <p>Following: {{ follow.following_id }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

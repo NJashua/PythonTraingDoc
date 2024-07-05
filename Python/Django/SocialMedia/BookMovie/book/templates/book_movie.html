@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Book Movie</h1>
+  <ul>
+    {% for show in shows %}
+      <li>
+        <a href="{% url 'book_show' show.id %}">{{ show.show_time }} - {{ show.theater.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

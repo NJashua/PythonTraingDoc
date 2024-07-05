@@ -1,0 +1,70 @@
+<!-- {% extends 'network/base.html' %}
+
+{% block title %}Post{% endblock %}
+
+{% block content %}
+    <div class="post">
+        <header>
+            <img src="{{ post.creater.profile_pic.url }}" alt="Profile Picture">
+            <h2>{{ post.creater.username }}</h2>
+        </header>
+        <img src="{{ post.content_image.url }}" alt="Post Image">
+        <p>{{ post.content_text }}</p>
+        <ul class="comments">
+            {% for comment in post.comments.all %}
+            <li>
+                <img src="{{ comment.commenter.profile_pic.url }}" alt="Commenter Profile Picture">
+                <p>{{ comment.comment_content }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+        <form action="{% url 'comment' post.id %}" method="post">
+            {% csrf_token %}
+            <label for="comment_content">Comment:</label>
+            <textarea id="comment_content" name="comment_content" required></textarea>
+            <button type="submit">Comment</button>
+        </form>
+    </div>
+{% endblock %} -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ post.content }}</h1>
+    <div class="post">
+        <div class="post-header">
+            <img src="{{ post.author.profile_pic }}" alt="Profile picture">
+            <h2>{{ post.author.username }}</h2>
+        </div>
+        <div class="post-content">
+            <p>{{ post.content }}</p>
+        </div>
+        <div class="post-footer">
+            <button class="like-btn">Like</button>
+            <button class="comment-btn">Comment</button>
+            <button class="save-btn">Save</button>
+        </div>
+        <div class="comments">
+            <h2>Comments</h2>
+            <ul>
+                {% for comment in post.comments %}
+                    <li>
+                        <div class="comment">
+                            <div class="comment-header">
+                                <img src="{{ comment.author.profile_pic }}" alt="Profile picture">
+                                <h2>{{ comment.author.username }}</h2>
+                            </div>
+                            <div class="comment-content">
+                                <p>{{ comment.content }}</p>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form class="form">
+                <textarea class="form-input" placeholder="Add a comment..."></textarea>
+                <button class="form-btn">Comment</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

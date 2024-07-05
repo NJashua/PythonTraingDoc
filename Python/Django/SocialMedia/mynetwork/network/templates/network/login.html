@@ -1,0 +1,35 @@
+<!-- {% extends 'network/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+{% endblock %} -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <input type="submit" value="Login">
+    </form>
+{% endblock %}

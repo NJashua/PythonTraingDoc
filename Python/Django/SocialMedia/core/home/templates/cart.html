@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+ 
+{% load static %}
+ 
+{% block start %}
+ 
+<style>
+ 
+</style>
+<div class="container card shadow-lg mt-5 ">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S.No.</th>
+ 
+                <th scope="col">Cancel Toicket</th>
+ 
+                <th scope="col">Book </th>
+                <th scope="col">Movie Name</th>
+                <th scope="col">Watch</th>
+ 
+            </tr>
+        </thead>
+        <tbody>
+            {% for cartItems in carts.cart_items.all %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td><a href="{% url 'remove_cart' cartItems.uid %}" class="btn btn-danger">Cancel Ticket</a>
+                </td>
+                <td><img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2hzeDhscDMwZzM4ejN4cW1vcWFnb3p4dW0wcm93bGF1OW1xbHI3ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pFZTlrO0MV6LoWSDXd/giphy.webp" style="height: 100px; width:100px; border-radius: 10px;"></td>
+                <td>
+                    <h5>{{cartItems.movie.movie_name}}</h5>
+                </td>
+                <td><a href="{% url 'payment' %}" class="btn btn-warning">
+                        Pay Now</a>
+ 
+ 
+            </tr>
+            {% endfor %}
+            <tr>
+ 
+                <th scope="col"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+ 
+            </tr>
+ 
+        </tbody>
+    </table>
+</div>
+ 
+ 
+ 
+ 
+{% endblock %}

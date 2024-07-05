@@ -1,0 +1,10 @@
+{% extends 'network/base.html' %}
+
+{% block title %}Unsave{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Unsave</button>
+    </form>
+{% endblock %}

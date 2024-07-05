@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+
+        <!-- Add Task Form -->
+        <form method="POST" action="{% url 'todo_list_api' %}">
+            {% csrf_token %}
+            <input type="text" name="task" placeholder="Add new task" required>
+            <button type="submit">Add</button>
+        </form>
+
+        <!-- Task List -->
+        <div id="task-list" class="task-list">
+            {% for todo in todos %}
+            <div class="task">
+                <p class="task-title">{{ todo.task }}</p>
+                <p>Created: {{ todo.timestamp }}</p>
+                <p>Completed: {% if todo.completed %} Yes {% else %} No {% endif %}</p>
+                <form method="POST" action="{% url 'todo_detail_api' todo.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="task" value="{{ todo.task }}">
+                    <input type="hidden" name="completed" value="{% if todo.completed %}True{% else %}False{% endif %}">
+                    <button type="submit">Update</button>
+                </form>
+                <form method="POST" action="{% url 'todo_detail_api' todo.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
